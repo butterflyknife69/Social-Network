@@ -6,9 +6,14 @@
 .dialogsItems {
     padding: 10px;
 }
-
+.dialogsItems a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+ 
+}
 .dialogsItems .active {
     color: gold;
+    
 }
 
 .messages {
