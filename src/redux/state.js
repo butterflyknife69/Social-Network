@@ -9,7 +9,8 @@ let state = {
             { id: 3, message: 'Hi ,how are you men?', LikesCount: 44 },
             { id: 4, message: 'Hi ,how are you men?', LikesCount: 22 },
             { id: 5, message: 'It my first post', LikesCount: 24 }
-        ]
+        ],
+        newPostText:'samurai'
     },
     dialogPage:{
         messages: [
@@ -31,9 +32,9 @@ let state = {
     },
     sideBar:{}
 }
+window.state=state;
 
-
-export let addPost = (postMessage) => {
+export let addPost = () => {
    
     // Знаходимо максимальний id серед існуючих об'єктів у posts
     let maxId = Math.max(...state.profilePage.posts.map(post => post.id));
@@ -41,10 +42,22 @@ export let addPost = (postMessage) => {
     // Створюємо новий об'єкт з id на 1 більшим за максимальний
     let newPost = {
         id: maxId + 1,
-        message: postMessage,
+        message: state.profilePage.newPostText,
         LikesCount: 0
     }
     state.profilePage.posts.push(newPost);
+    state.profilePage.newPostText='';
     renderEntireTree(state);
 }
+
+
+
+export let updateNewPostText = (newText) => {
+    state.profilePage.newPostText=newText;
+    renderEntireTree(state);
+}
+
+
+
+
 export default state;
