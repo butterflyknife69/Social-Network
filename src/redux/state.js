@@ -1,4 +1,4 @@
-
+import { renderEntireTree } from "../render";
 
 
 let state = {
@@ -32,13 +32,19 @@ let state = {
     sideBar:{}
 }
 
-export let addPost=(postMessage)=>{
-    let newPost={
-        id:6,
-        message:postMessage,
-        LikesCount:0
+
+export let addPost = (postMessage) => {
+   
+    // Знаходимо максимальний id серед існуючих об'єктів у posts
+    let maxId = Math.max(...state.profilePage.posts.map(post => post.id));
+
+    // Створюємо новий об'єкт з id на 1 більшим за максимальний
+    let newPost = {
+        id: maxId + 1,
+        message: postMessage,
+        LikesCount: 0
     }
     state.profilePage.posts.push(newPost);
+    renderEntireTree(state);
 }
-
 export default state;
