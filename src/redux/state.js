@@ -1,5 +1,6 @@
-import { renderEntireTree } from "../render";
-
+let renderEntireTree=()=>{
+    console.log('stte change');
+}
 
 let state = {
     profilePage:{
@@ -33,8 +34,7 @@ let state = {
     sideBar:{}
 }
 window.state=state;
-
-export let addPost = () => {
+export const addPost = () => {
    
     // Знаходимо максимальний id серед існуючих об'єктів у posts
     let maxId = Math.max(...state.profilePage.posts.map(post => post.id));
@@ -49,15 +49,14 @@ export let addPost = () => {
     state.profilePage.newPostText='';
     renderEntireTree(state);
 }
-
-
-
-export let updateNewPostText = (newText) => {
+export const updateNewPostText = (newText) => {
     state.profilePage.newPostText=newText;
     renderEntireTree(state);
 }
 
-
+export const subscribe=(observer)=>{
+    renderEntireTree=observer;
+}
 
 
 export default state;
