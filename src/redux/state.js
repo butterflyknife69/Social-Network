@@ -1,3 +1,6 @@
+const ADDpost = 'ADD-POST';
+const UPDATENEWPOSTTEXT = 'UPDATE-NEW-POST-TEXT';
+
 let store = {
     _state: {
         profilePage: {
@@ -30,35 +33,40 @@ let store = {
         },
         sideBar: {}
     },
-    getState() {
-        return this._state
-    },
     _callSubscriber() {
         console.log('stte change');
     },
-    addPost() {
-
-        // Знаходимо максимальний id серед існуючих об'єктів у posts
-        let maxId = Math.max(...this._state.profilePage.posts.map(post => post.id));
-
-        // Створюємо новий об'єкт з id на 1 більшим за максимальний
-        let newPost = {
-            id: maxId + 1,
-            message: this._state.profilePage.newPostText,
-            LikesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
+    getState() {
+        return this._state
     },
     subscribe(observer) {
         this._callSubscriber = observer;
+    },
+    dispatch(action) {
+        if (action.type === ADDpost) {
+            // Знаходимо максимальний id серед існуючих об'єктів у posts
+            let maxId = Math.max(...this._state.profilePage.posts.map(post => post.id));
+
+            // Створюємо новий об'єкт з id на 1 більшим за максимальний
+            let newPost = {
+                id: maxId + 1,
+                message: this._state.profilePage.newPostText,
+                LikesCount: 0
+            }
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubscriber(this._state);
+        } else if (action.type === UPDATENEWPOSTTEXT) {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber(this._state);
+        }
     }
 }
+
+
+export const addPostActionCreator = () => ({ type: ADDpost })
+export const updateNewPostTextActionCreator = (text) =>
+    ({ type: UPDATENEWPOSTTEXT, newText: text })
 
 
 export default store;
