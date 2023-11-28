@@ -1,5 +1,8 @@
 const ADDpost = 'ADD-POST';
 const UPDATENEWPOSTTEXT = 'UPDATE-NEW-POST-TEXT';
+const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
+const SEND_MESSAGE = 'SEND_MESSAGE'
+
 
 let store = {
     _state: {
@@ -19,8 +22,8 @@ let store = {
                 { id: 2, message: 'How is yor it-kamasutra' },
                 { id: 3, message: 'Yoo' },
                 { id: 4, message: 'Yoo' },
-                { id: 4, message: 'Yoo' },
-                { id: 5, message: 'Yoo' }
+                { id: 5, message: 'Yoo' },
+                { id: 6, message: 'Yoo' }
             ],
             dialogs: [
                 { id: 1, name: 'Dimych' },
@@ -29,7 +32,8 @@ let store = {
                 { id: 4, name: 'Sasha' },
                 { id: 5, name: 'Viktor' },
                 { id: 6, name: 'Valera' }
-            ]
+            ],
+            newMessageBody :""
         },
         sideBar: {}
     },
@@ -59,14 +63,27 @@ let store = {
         } else if (action.type === UPDATENEWPOSTTEXT) {
             this._state.profilePage.newPostText = action.newText;
             this._callSubscriber(this._state);
+        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+            this._state.dialogPage.newMessageBody = action.body;
+            this._callSubscriber(this._state);
+           
+        } else if (action.type === SEND_MESSAGE) {
+            let body = this._state.dialogPage.newMessageBody;
+            this._state.dialogPage.newMessageBody = '';
+            let maxId = Math.max(...this._state.dialogPage.messages.map(message => message.id));
+            this._state.dialogPage.messages.push({ id: maxId + 1, message: body });
+            this._callSubscriber(this._state);
         }
     }
 }
 
-
 export const addPostActionCreator = () => ({ type: ADDpost })
 export const updateNewPostTextActionCreator = (text) =>
     ({ type: UPDATENEWPOSTTEXT, newText: text })
+
+export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
+export const updateNewMessageBodyCreator = (body) =>
+    ({ type: UPDATE_NEW_MESSAGE_BODY, body: body })
 
 
 export default store;
