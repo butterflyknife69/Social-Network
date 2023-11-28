@@ -1,7 +1,6 @@
-const ADDpost = 'ADD-POST';
-const UPDATENEWPOSTTEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY'
-const SEND_MESSAGE = 'SEND_MESSAGE'
+import dialogReducer from "./dialogsReducer";
+import profileReducer from "./profileRducer";
+import sideBarReducer from "./sideBarReducer";
 
 
 let store = {
@@ -33,7 +32,7 @@ let store = {
                 { id: 5, name: 'Viktor' },
                 { id: 6, name: 'Valera' }
             ],
-            newMessageBody :""
+            newMessageBody: ""
         },
         sideBar: {}
     },
@@ -47,44 +46,14 @@ let store = {
         this._callSubscriber = observer;
     },
     dispatch(action) {
-        if (action.type === ADDpost) {
-            // Знаходимо максимальний id серед існуючих об'єктів у posts
-            let maxId = Math.max(...this._state.profilePage.posts.map(post => post.id));
+        this._state.profilePage = profileReducer(this._state.profilePage, action)
+        this._state.dialogPage = dialogReducer(this._state.dialogPage, action)
+        this._state.sideBar = sideBarReducer(this._state.sideBar, action)
 
-            // Створюємо новий об'єкт з id на 1 більшим за максимальний
-            let newPost = {
-                id: maxId + 1,
-                message: this._state.profilePage.newPostText,
-                LikesCount: 0
-            }
-            this._state.profilePage.posts.push(newPost);
-            this._state.profilePage.newPostText = '';
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATENEWPOSTTEXT) {
-            this._state.profilePage.newPostText = action.newText;
-            this._callSubscriber(this._state);
-        } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-            this._state.dialogPage.newMessageBody = action.body;
-            this._callSubscriber(this._state);
-           
-        } else if (action.type === SEND_MESSAGE) {
-            let body = this._state.dialogPage.newMessageBody;
-            this._state.dialogPage.newMessageBody = '';
-            let maxId = Math.max(...this._state.dialogPage.messages.map(message => message.id));
-            this._state.dialogPage.messages.push({ id: maxId + 1, message: body });
-            this._callSubscriber(this._state);
-        }
+        this._callSubscriber(this._state);
+
     }
 }
-
-export const addPostActionCreator = () => ({ type: ADDpost })
-export const updateNewPostTextActionCreator = (text) =>
-    ({ type: UPDATENEWPOSTTEXT, newText: text })
-
-export const sendMessageCreator = () => ({ type: SEND_MESSAGE })
-export const updateNewMessageBodyCreator = (body) =>
-    ({ type: UPDATE_NEW_MESSAGE_BODY, body: body })
-
 
 export default store;
 
