@@ -1,5 +1,5 @@
 import reportWebVitals from './reportWebVitals';
-import store from './redux/state';
+import store from './redux/ReduxStore';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -23,7 +23,10 @@ let renderEntireTree = (state) => {
 
 
 renderEntireTree(store.getState());
-store.subscribe(renderEntireTree);
+store.subscribe(()=>{
+    let state=store.getState()
+    renderEntireTree(state);
+})
 
 
 // const root = ReactDOM.createRoot(document.getElementById('root'));

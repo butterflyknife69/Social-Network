@@ -1,7 +1,29 @@
 const UPDATE_NEW_MESSAGE_BODY = 'UPDATE_NEW_MESSAGE_BODY';
 const SEND_MESSAGE = 'SEND_MESSAGE';
 
-const dialogReducer = (state, action) => {
+
+
+let initialState={
+    messages: [
+        { id: 1, message: 'Hi' },
+        { id: 2, message: 'How is yor it-kamasutra' },
+        { id: 3, message: 'Yoo' },
+        { id: 4, message: 'Yoo' },
+        { id: 5, message: 'Yoo' },
+        { id: 6, message: 'Yoo' }
+    ],
+    dialogs: [
+        { id: 1, name: 'Dimych' },
+        { id: 2, name: 'Andrey' },
+        { id: 3, name: 'Sveta' },
+        { id: 4, name: 'Sasha' },
+        { id: 5, name: 'Viktor' },
+        { id: 6, name: 'Valera' }
+    ],
+    newMessageBody: ""
+}
+
+const dialogReducer = (state=initialState, action) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
             state.newMessageBody = action.body;
