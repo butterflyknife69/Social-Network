@@ -7,7 +7,7 @@ import Profile from './components/Profile/Profile';
 import News from './components/News/News';
 import Music from './components/Music/Music';
 import Setting from './components/Setting/Setting';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 
 const App = (props) => {
@@ -18,9 +18,7 @@ const App = (props) => {
       <Navbar />
       <div className='app-wrapper-content'>
         <Routes>
-          <Route path="/profile" element={<Profile
-            profilePage={props.state.profilePage}
-            dispatch={props.dispatch} />} />
+          <Route path="/profile" element={<Profile store={props.store} />} />
           <Route path="/dialogs" element={<Dialogs store={props.store} />} />
           <Route path="/news" element={<News />} />
           <Route path="/music" element={<Music />} />
