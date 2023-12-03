@@ -3,7 +3,7 @@ const SEND_MESSAGE = 'SEND_MESSAGE';
 
 
 
-let initialState={
+let initialState = {
     messages: [
         { id: 1, message: 'Hi' },
         { id: 2, message: 'How is yor it-kamasutra' },
@@ -23,20 +23,24 @@ let initialState={
     newMessageBody: ""
 }
 
-const dialogReducer = (state=initialState, action) => {
+const dialogReducer = (state = initialState, action) => {
+
+    let stateCopy = {
+        ...state,
+        // messages:[...state.messages]
+    }
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_BODY:
-            state.newMessageBody = action.body;
-            return state;
+            stateCopy.newMessageBody = action.body;
+            return stateCopy;
 
         case SEND_MESSAGE:
             let body = state.newMessageBody;
-            state.newMessageBody = '';
-            let maxId = Math.max(...state.messages.map(message => message.id));
-            state.messages.push({ id: maxId + 1, message: body });
-            return state;
+            stateCopy.newMessageBody = '';
+            let maxId = Math.max(...stateCopy.messages.map(message => message.id));
+            stateCopy.messages.push({ id: maxId + 1, message: body });
+            return stateCopy;
         default:
-            // Якщо action.type не відповідає жодному case
             return state;
     }
 };
