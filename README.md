@@ -68,3 +68,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+Помогает структурировать все знания создание страницы .
+Получился такой roadmap по созданию страницы 
+1. Route
+2. Папка c jsx/css/container
+3. Link in navbar
+4. Store ветка
+5. Reducer -> initialStore
+6. Верстка (css, map(with key), userContainer, mapStateToProps)
+7. Логика:
+     7.1. onClick
+     7.2. mapDispatchToProps
+     7.3. Reducer
+        7.3.1. action creator
+        7.3.2. action type
+        7.3.3. switch
