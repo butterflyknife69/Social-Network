@@ -4,9 +4,9 @@ const SetUSERS = 'SetUSERS';
 
 let initialState = {
     users: [
-        // { id: 1, followed: false, fullName: 'Dmitry', status: 'Im a boss', location: { city: 'Minsk', country: 'Belarus' } },
-        // { id: 2, followed: true, fullName: 'Svetlana', status: 'Im a boss', location: { city: 'Kiev', country: 'Ukraine' } },
-        // { id: 3, followed: false, fullName: 'Sergei', status: 'Im a boss', location: { city: 'Krakow', country: 'Poland' } }
+        { id: 1, photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Jason_Statham_2007.jpg/280px-Jason_Statham_2007.jpg', followed: false, fullName: 'Dmitry', status: 'Im a boss', location: { city: 'Minsk', country: 'Belarus' } },
+        { id: 2, photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Jason_Statham_2007.jpg/280px-Jason_Statham_2007.jpg', followed: true, fullName: 'Svetlana', status: 'Im a boss', location: { city: 'Kiev', country: 'Ukraine' } },
+        { id: 3, photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Jason_Statham_2007.jpg/280px-Jason_Statham_2007.jpg', followed: false, fullName: 'Sergei', status: 'Im a boss', location: { city: 'Krakow', country: 'Poland' } }
     ]
 }
 
@@ -15,7 +15,7 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state.users.map()(u => {
+                users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return { ...u, followed: true }
                     }
@@ -25,7 +25,7 @@ const usersReducer = (state = initialState, action) => {
         case UNFOLLOW:
             return {
                 ...state,
-                users: state.users.map()(u => {
+                users: state.users.map(u => {
                     if (u.id === action.userId) {
                         return { ...u, followed: false }
                     }
